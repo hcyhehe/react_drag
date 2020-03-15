@@ -4,10 +4,10 @@ import { Droppable } from 'react-beautiful-dnd';
 import Task from './task';
 
 const Container = styled.div`
-  margin: 20px;
+  margin: 60px;
   border: 1px solid lightgrey;
   border-radius: 2px;
-  width: 800px;
+  width: 480px;
   
 `;
 const Title = styled.h3`
@@ -20,6 +20,7 @@ const TaskList = styled.div`
     background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
     min-height: 100px;
 `;
+
 
 export default class Column extends React.Component {
   render() {
