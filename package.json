@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@atlaskit/css-reset": "^5.0.10",
     "@babel/core": "7.8.4",
     "@svgr/webpack": "4.3.3",
     "@testing-library/jest-dom": "^4.2.4",
@@ -50,6 +51,8 @@
     "react-app-polyfill": "^1.0.6",
     "react-beautiful-dnd": "^13.0.0",
     "react-dev-utils": "^10.2.0",
+    "react-dnd": "^8.0.0",
+    "react-dnd-html5-backend": "^8.0.0",
     "react-dom": "^16.13.0",
     "react-helmet": "^5.2.1",
     "react-redux": "^7.2.0",
@@ -60,6 +63,7 @@
     "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
+    "styled-components": "^5.0.1",
     "terser-webpack-plugin": "2.3.4",
     "ts-pnp": "1.1.5",
     "url-loader": "2.3.0",
@@ -141,6 +145,14 @@
   "babel": {
     "presets": [
       "react-app"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
     ]
   }
 }

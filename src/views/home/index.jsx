@@ -12,6 +12,7 @@ const getItems = count => (
 
 // 重新记录数组顺序
 const reorder = (list, startIndex, endIndex) => {
+  console.log(list, startIndex, endIndex)
   const result = Array.from(list);
   //删除并记录 删除元素
   const [removed] = result.splice(startIndex, 1)
@@ -44,23 +45,37 @@ const getListStyle = () => ({
 class Home extends Component {
   constructor(props) {
     super(props)
+    
     this.state = {
-      items: getItems(5)
+      items1: getItems(1),
+      items2: getItems(5)
     }
     this.onDragEnd = this.onDragEnd.bind(this)
   }
 
   onDragEnd(result) {
     if (!result.destination) {
-      return;
+      return
     }
-    const items = reorder(
-      this.state.items,
+
+    // let source = this.state['items'+result.source.droppableId.split('d')[1]][result.source.index]
+    // let destination = this.state['items'+result.destination.droppableId.split('d')[1]][result.destination.index]
+    // console.log(source, destination)
+    
+    // const items1 = reorder(
+    //   this.state.items1,
+    //   source,
+    //   destination
+    // )
+
+    const items1 = reorder(
+      this.state.items1,
       result.source.index,
       result.destination.index
     )
+    console.log(items1[0])
     this.setState({
-      items
+      items1
     })
   }
 
@@ -76,18 +91,18 @@ class Home extends Component {
         </div>
         <div className="rightBody">
           <DragDropContext onDragEnd={this.onDragEnd}>
-            <Droppable droppableId="droppable" direction="horizontal">
+            <Droppable droppableId="d1" direction="horizontal" index={0}>
               {(provided, snapshot) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
                   style={getListStyle(snapshot.isDraggingOver)}
                 >
-                  {this.state.items.map((item, index) => (
-                    <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {this.state.items1.map((item, index) => (
+                    <Draggable key={'d1-'+item.id} draggableId={'d1-'+item.id} index={index}>
                       {(provided, snapshot) => (
                         <div
-                          onClick={this.showWin.bind(this, item.id)}
+                          onClick={this.showWin.bind(this, 'd1-'+item.id)}
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -105,6 +120,38 @@ class Home extends Component {
                 </div>
               )}
             </Droppable>
+
+            
+            <Droppable droppableId="d2" direction="horizontal" index={1}>
+              {(provided, snapshot) => (
+                <div
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+                  {this.state.items2.map((item2, index2) => (
+                    <Draggable key={'d2-'+item2.id} draggableId={'d2-'+item2.id} index={index2}>
+                      {(provided, snapshot) => (
+                        <div
+                          onClick={this.showWin.bind(this, 'd2-'+item2.id)}
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          style={getItemStyle(
+                            snapshot.isDragging,
+                            provided.draggableProps.style
+                          )}
+                        >
+                          {item2.content}
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+
           </DragDropContext>
         </div>
       </div>
