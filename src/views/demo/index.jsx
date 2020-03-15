@@ -6,7 +6,7 @@ import initialData from './initial-data';
 import Column from './column';
 
 const Container = styled.div`
-  display: flex;
+  
 `;
 
 class Demo extends React.Component {

@@ -7,6 +7,7 @@ const Container = styled.div`
   border-radius: 2px;
   padding: 8px;
   margin-bottom: 8px;
+  margin-right: 16px;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
@@ -20,11 +21,16 @@ export default class Task extends React.Component {
             {...provided.dragHandleProps}
             ref={provided.innerRef}
             isDragging={snapshot.isDragging}
+            onClick={this.showWin.bind(this, this.props.task.id)}
           >
             {this.props.task.content}
           </Container>
         )}
       </Draggable>
     );
+  }
+
+  showWin(id){
+    console.log(id)
   }
 }
