@@ -3,25 +3,9 @@ import '@atlaskit/css-reset';
 import styled from 'styled-components';
 import { DragDropContext } from 'react-beautiful-dnd';
 import Column from './column';
+import './index.less'
 
-const Container = styled.div`
-  position: relative;
-`;
-
-const Btn = styled.div`
-  position: absolute;
-  left: 60px;
-  top: -35px;
-  background: blue;
-  width: 80px;
-  height: 30px;
-  line-height: 30px;
-  text-align: center;
-  color: #fff;
-  font-size: 14px;
-  border-radius: 5px;
-  cursor: pointer;
-`;
+const Container = styled.div``;
 
 class Demo extends React.Component {
   state = {
@@ -136,21 +120,31 @@ class Demo extends React.Component {
     this.setState(columns)
   }
 
+  checkFlow(){
+    const columns = this.state.columns
+    if(columns['column-1'].taskIds.length>0){
+      columns['column-1'].taskIds = columns['column-1'].taskIds.reverse()
+    }
+    this.setState(columns)
+  }
+
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
-        <Container>
-          <Btn onClick={this.newFlow.bind(this)}>New Flow</Btn>
-          {this.state.columnOrder.map(columnId => {
-            const column = this.state.columns[columnId];
-            const tasks = column.taskIds.map(
-              taskId => this.state.tasks[taskId],
-            );
-
-            return <Column key={column.id} column={column} tasks={tasks} />;
-          })}
-        </Container>
-      </DragDropContext>
+      <div className="drag">
+        <DragDropContext onDragEnd={this.onDragEnd}>
+          <Container>
+            <div className="btn btn1" onClick={this.newFlow.bind(this)}>New Flow</div>
+            <div className="btn btn2" onClick={this.checkFlow.bind(this)}>Check Flow</div>
+            {this.state.columnOrder.map(columnId => {
+              const column = this.state.columns[columnId];
+              const tasks = column.taskIds.map(
+                taskId => this.state.tasks[taskId],
+              );
+              return <Column key={column.id} column={column} tasks={tasks} />;
+            })}
+          </Container>
+        </DragDropContext>
+      </div>
     );
   }
 }
